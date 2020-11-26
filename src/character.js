@@ -4,6 +4,9 @@ function Character(config) {
   this.health = config.health;
   this.maxHealth = config.maxHealth;
   this.dialogue = config.dialogue;
+  this.level = 1;
+  this.baseAttack = 0;
+  this.baseDefense = 0;
 }
 
 Character.prototype = {
@@ -24,6 +27,14 @@ Character.prototype = {
   },
   speak: function () {
     return this.dialogue;
+  },
+
+  get attackTotal() {
+    return this.baseAttack + this.level;
+  },
+
+  get defenseTotal() {
+    return this.baseDefense + this.level;
   },
 };
 

@@ -9,6 +9,9 @@ describe('character', () => {
       health: 10,
       maxHealth: 10,
       dialogue: 'hello',
+      level: 1,
+      baseAttack: 0,
+      baseDefense: 0,
     };
     character = new Character(config);
   });
@@ -27,6 +30,15 @@ describe('character', () => {
     });
     it('has dialogue', () => {
       expect(character.dialogue).toBe(config.dialogue);
+    });
+    it('has a level', () => {
+      expect(character.level).toBe(config.level);
+    });
+    it('has a base attack', () => {
+      expect(character.baseAttack).toBe(config.baseAttack);
+    });
+    it('has a  base defense', () => {
+      expect(character.baseDefense).toBe(config.baseDefense);
     });
   });
   describe('speak', () => {
