@@ -1,85 +1,99 @@
-const Character = require('../src/character');
+const Character = require("../src/character");
 
-describe('character', () => {
+describe("character", () => {
   let character;
   let config;
   beforeEach(() => {
     config = {
-      name: 'npc',
+      name: "npc",
       health: 10,
       maxHealth: 10,
-      dialogue: 'hello',
+      dialogue: "hello",
       level: 1,
       baseAttack: 0,
       baseDefense: 0,
     };
     character = new Character(config);
   });
-  describe('constructor function', () => {
-    it('returns an object', () => {
+  describe("constructor function", () => {
+    it("returns an object", () => {
       expect(character).toBeInstanceOf(Object);
     });
-    it('has a name', () => {
+    it("has a name", () => {
       expect(character.name).toBe(config.name);
     });
-    it('has health', () => {
+    it("has health", () => {
       expect(character.health).toBe(config.health);
     });
-    it('has a maximum health', () => {
+    it("has a maximum health", () => {
       expect(character.maxHealth).toBe(config.maxHealth);
     });
-    it('has dialogue', () => {
+    it("has dialogue", () => {
       expect(character.dialogue).toBe(config.dialogue);
     });
-    it('has a level', () => {
+    it("has a level", () => {
       expect(character.level).toBe(config.level);
     });
-    it('has a base attack', () => {
+    it("has a base attack", () => {
       expect(character.baseAttack).toBe(config.baseAttack);
     });
-    it('has a  base defense', () => {
+    it("has a  base defense", () => {
       expect(character.baseDefense).toBe(config.baseDefense);
     });
   });
-  describe('speak', () => {
-    it('returns its dialogue', () => {
+  describe("speak", () => {
+    it("returns its dialogue", () => {
       expect(character.speak()).toBe(config.dialogue);
     });
   });
-  describe('isAlive', () => {
-    it('returns alive if health is above 0', () => {
+  describe("isAlive", () => {
+    it("returns alive if health is above 0", () => {
       expect(character.isAlive).toBe(true);
     });
-    it('returns dead if health is 0', () => {
+    it("returns dead if health is 0", () => {
       character.health = 0;
       expect(character.isAlive).toBe(false);
     });
   });
-  describe('take damage', () => {
-    it('can take damage', () => {
+  describe("take damage", () => {
+    it("can take damage", () => {
       const startingHealth = character.health;
       const damage = 5;
       character._takeDamage(damage);
       expect(character.health).toBe(startingHealth - damage);
     });
-    it('cannot be damaged to less than 0', () => {
+    it("cannot be damaged to less than 0", () => {
       const damage = 100;
       character._takeDamage(damage);
       expect(character.health).toBe(0);
     });
   });
-  describe('healing', () => {
-    it('can recover health', () => {
+  describe("healing", () => {
+    it("can recover health", () => {
       character.health = 1;
       const potion = 9;
       character._heal(potion);
       expect(character.health).toBe(10);
     });
-    it('cannot recover more than its maxHealth', () => {
+    it("cannot recover more than its maxHealth", () => {
       character.health = 1;
       const potion = 100;
       character._heal(potion);
       expect(character.health).toBe(10);
+    });
+  });
+  describe("has an attack total", () => {
+    it("adds level and base attack", () => {
+      character.level = 5;
+      character.baseAttack = 1;
+      expect(character.attackTotal).toBe(6);
+    });
+  });
+  describe("has a defense total", () => {
+    it("adds level and base defense", () => {
+      character.level = 10;
+      character.baseDefense = 5;
+      expect(character.defenseTotal).toBe(15);
     });
   });
 });
